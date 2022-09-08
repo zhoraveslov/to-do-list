@@ -19,8 +19,8 @@ form.addEventListener('submit', function(e) {
         var taskText = inputTask.value;
         Items.push(taskText);
         localStorage.setItem('Items', JSON.stringify(Items));
-        JSON.parse(localStorage.getItem('Items'));
-        itemMaker(inputTask.value)
+      
+        itemMaker(taskText.value)
         inputTask.value = ''
 
     }
@@ -34,7 +34,14 @@ const itemMaker = taskText => {
 
 }
 
+function showTask(li) {
 
+    Items.forEach(element => itemMaker(element)
+
+    );
+}
+
+showTask()
 
 
 
