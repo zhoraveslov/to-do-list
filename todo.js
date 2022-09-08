@@ -4,10 +4,9 @@ const form = document.querySelector('form');
 const taskTable = document.querySelector('.taskTable');
 const ul = document.querySelectorAll('ul');
 var Items = localStorage.getItem('Items') ? JSON.parse(localStorage.getItem('Items')) : [];
-
 localStorage.setItem('Items', JSON.stringify(Items));
-const data = JSON.parse(localStorage.getItem('Items'));
-
+const deleteBtn = document.querySelector('.deleteBtn');
+    var taskText = inputTask.value;
 //Stop the form from submitting when a button is pressed
 form.addEventListener('submit', function(e) {
     e.preventDefault();
@@ -17,7 +16,9 @@ form.addEventListener('submit', function(e) {
     } else {
 
         var taskText = inputTask.value;
-        Items.push(taskText);
+        const timeStamp = Date.now();
+        var Item = { taskText, timeStamp };
+        Items.push(Item);
         localStorage.setItem('Items', JSON.stringify(Items));
       
         itemMaker(taskText.value)
@@ -28,7 +29,14 @@ form.addEventListener('submit', function(e) {
 
 const itemMaker = taskText => {
     var li = document.createElement('li')
-    li.textContent = inputTask.value;
+    const timeStamp = Date.now();
+    li.value = timeStamp;
+    li.textContent = taskText;
+        li.className = 'task';
+        li.innerHTML = `<p> ${taskText} </p>
+<form> <button class = "deleteBtn" id = "timeStamp">Delete</button> 
+</form>`;
+        ul[0].appendChild(li);
 
     ul[0].appendChild(li);
 
@@ -45,20 +53,3 @@ showTask()
 
 
 
-// button.addEventListener('click', function() {
-//     if (inputTask.value == '') {
-//         alert("Enter new task");
-//     } else {
-//         // const li = document.createElement('li');
-//         // li.textContent = inputTask.value;
-//         // ul[0].appendChild(li);
-//         var taskText = inputTask.value;
-//         Items.push(taskText);
-//         localStorage.setItem('Items', JSON.stringify(Items));
-//         // JSON.parse(localStorage.getItem('Items'));
-//         // itemMaker(inputTask.value)
-
-
-
-//     }
-// })
